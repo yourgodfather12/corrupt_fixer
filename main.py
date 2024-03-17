@@ -5,7 +5,6 @@ from tkinter import filedialog, messagebox, ttk
 from PIL import Image, ImageFile
 import concurrent.futures
 import threading
-import filecmp
 
 # Increase the maximum image file size limit
 Image.MAX_IMAGE_PIXELS = None
@@ -117,8 +116,6 @@ class ImageRepairTool(tk.Tk):
         self.log_text.see(tk.END)
         self.repairing = False
 
-        self.delete_duplicates()
-
     def is_supported_format(self, file_path):
         _, ext = os.path.splitext(file_path)
         supported_formats = [".jpg", ".jpeg", ".png", ".heif", ".heic"]
@@ -158,43 +155,6 @@ class ImageRepairTool(tk.Tk):
     def update_progress(self, processed_files, total_files):
         self.progress_bar["value"] = (processed_files / total_files) * 100
         self.status_label.config(text=f"Repairing files... ({processed_files}/{total_files})")
-
-    def delete_duplicates(self):
-        duplicates = []
-        for root, _, files in os.walk(self.selected_folder):
-            for file in files:
-                file_path = os.path.normpath(os.path.join(root, file))
-                if file_path in duplicates:
-                    continue
-                for other_file in files:
-                    if file != other_file:
-                        other_file_path = os.path.normpath(os.path.join(root, other_file))
-                        if filecmp.cmp(file_path, other_file_path, shallow=False):
-                            duplicates.append(other_file_path)
-                            break
-
-        if duplicates:
-            confirm = messagebox.askyesno("Delete Duplicates",
-                                          f"Do you want to delete {len(duplicates)} duplicate files?")
-            if confirm:
-                for duplicate in duplicates:
-                    try:
-                        os.remove(duplicate)
-                        self.log_text.insert(tk.END, f"Deleted duplicate file: {duplicate}\n")
-                    except Exception as e:
-                        self.log_text.insert(tk.END, f"Error deleting duplicate file '{duplicate}': {e}\n")
-
-                self.log_text.insert(tk.END, f"Deleted {len(duplicates)} duplicate files.\n")
-            else:
-                self.log_text.insert(tk.END, "Duplicate file deletion cancelled by user.\n")
-        else:
-            self.log_text.insert(tk.END, "No duplicate files found.\n")
-
-        # Log details about duplicate scan
-        self.log_text.insert(tk.END, f"Scanned {len(files)} files for duplicates.\n")
-
-        self.log_text.see(tk.END)
-        self.progress_bar['value'] = 0
 
 
 if __name__ == "__main__":
