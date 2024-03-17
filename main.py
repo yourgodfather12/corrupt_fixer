@@ -174,7 +174,8 @@ class ImageRepairTool(tk.Tk):
                             break
 
         if duplicates:
-            confirm = messagebox.askyesno("Delete Duplicates", f"Do you want to delete {len(duplicates)} duplicate files?")
+            confirm = messagebox.askyesno("Delete Duplicates",
+                                          f"Do you want to delete {len(duplicates)} duplicate files?")
             if confirm:
                 for duplicate in duplicates:
                     try:
@@ -188,8 +189,13 @@ class ImageRepairTool(tk.Tk):
                 self.log_text.insert(tk.END, "Duplicate file deletion cancelled by user.\n")
         else:
             self.log_text.insert(tk.END, "No duplicate files found.\n")
+
+        # Log details about duplicate scan
+        self.log_text.insert(tk.END, f"Scanned {len(files)} files for duplicates.\n")
+
         self.log_text.see(tk.END)
         self.progress_bar['value'] = 0
+
 
 if __name__ == "__main__":
     app = ImageRepairTool()
