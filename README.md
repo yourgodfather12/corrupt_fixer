@@ -1,23 +1,57 @@
-Image Repair Tool
+# Image Repair Tool
 
-This script provides a simple GUI tool for repairing image files with potential corruption issues. It supports popular image formats such as JPG, JPEG, PNG, HEIF, and HEIC. The tool scans a selected folder for eligible image files and attempts to repair any detected issues.
+A simple GUI tool to repair corrupted image files. Supports `.jpg`, `.jpeg`, `.png`, `.heif`, and `.heic`.
 
-Features
+## Features
 
-Select a folder containing image files to repair.
-Supports multi-threading for efficient scanning and repairing.
-Provides real-time progress updates and logging of repair operations.
-Successfully repaired files are saved, while corrupted files are logged for further inspection.
-Usage
+- **Folder Selection**: Choose a folder containing images to repair.
+- **Multi-language Support**: Easily switch interface languages.
+- **Progress Tracking**: Monitor repair progress.
+- **Logging**: Detailed logs for each session.
+- **Image Preview**: Basic preview of repaired images (upcoming feature).
 
-Run the script.
+## Installation
 
-Click "Select Folder" to choose the folder containing image files.
-Click "Start Repair" to initiate the repair process.
-Monitor progress and view repair status in the log area.
-Dependencies
-Python 3.x
-tkinter
-PIL (Python Imaging Library)
-Note
-Ensure that the selected folder contains only image files in supported formats (JPG, JPEG, PNG, HEIF, HEIC) for optimal performance.
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/yourusername/image-repair-tool.git
+    cd image-repair-tool
+    ```
+
+2. **Create a virtual environment and install dependencies:**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    pip install -r requirements.txt
+    ```
+
+## Usage
+
+1. **Run the application:**
+    ```bash
+    python image_repair_tool.py
+    ```
+
+2. **Select a Folder**: Click "Select Folder" to choose your image directory.
+3. **Start Repair**: Click "Start Repair" to begin fixing images.
+4. **Preview Images**: Click "Preview Repaired Images" after repair (upcoming feature).
+
+## Configuration
+
+Update `language_texts.json` to add or modify languages.
+
+## Logging
+
+Logs are saved to `image_repair_tool.log`.
+
+## Contributing
+
+Fork the repository and submit a pull request with your improvements.
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+Feel free to reach out with any questions or suggestions!
